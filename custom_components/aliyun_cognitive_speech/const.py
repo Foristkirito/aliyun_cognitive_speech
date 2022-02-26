@@ -1,13 +1,16 @@
-DOMAIN = "azure_cognitive_speech"
+DOMAIN = "aliyun_cognitive_speech"
 OPT_VOICE = "voice"
-OPT_STYLE = "style"
-OPT_ROLE = "role"
+OPT_VOL = "volume"
 OPT_SPEED = "speed"
+OPT_PITCH = "pitch"
 CONF_DEFAULT_VOICE = "default_voice"
+CONF_ACCESS_KEY = "access_key"
+CONF_ACCESS_SECRET = "access_secret"
+CONF_APP_KEY = "app_key"
 DEFAULT_LANGUAGE = "zh-CN"
-DEFAULT_VOICE = "Xiaoxiao"
-ENDPOINT_URI = "https://{}.api.cognitive.microsoft.com/sts/v1.0/issuetoken"
-TTS_URL = "https://{}.tts.speech.microsoft.com/cognitiveservices/v1"
+DEFAULT_VOICE = "aixia"
+ENDPOINT_URI = "http://nls-meta.cn-shanghai.aliyuncs.com"
+TTS_URL = "https://nls-gateway.cn-shanghai.aliyuncs.com/stream/v1/tts"
 TOKEN_OUTDATE = 720
 SUPPORT_LANGUAGES = [
     "ar-EG",

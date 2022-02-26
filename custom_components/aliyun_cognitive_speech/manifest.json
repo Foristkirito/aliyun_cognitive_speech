@@ -1,12 +1,11 @@
 {
-  "domain": "azure_cognitive_speech",
-  "name": "Azure Cognitive Speech",
-  "version": "v0.0.5",
+  "domain": "aliyun_cognitive_speech",
+  "name": "aliyun Cognitive Speech",
+  "version": "v0.0.1",
   "config_flow": false,
   "documentation": "https://github.com/georgezhao2010/azure_cognitive_speech",
   "issue_tracker": "https://github.com/georgezhao2010/azure_cognitive_speech/issue",
-  "requirements": [],
+  "requirements": ["aliyun-python-sdk-core==2.13.3"],
   "dependencies": [],
-  "iot_class": "cloud_push",
-  "codeowners": ["@georgezhao2010"]
+  "codeowners": ["@foristkirito"]
 }

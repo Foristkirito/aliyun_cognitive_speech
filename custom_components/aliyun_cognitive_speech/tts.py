@@ -2,11 +2,10 @@ import logging
 import voluptuous as vol
 import homeassistant.helpers.config_validation as cv
 from homeassistant.components.tts import PLATFORM_SCHEMA, Provider
-from homeassistant.const import CONF_API_KEY, CONF_REGION
 from .const import (
     DEFAULT_LANGUAGE, SUPPORT_LANGUAGES,
-    OPT_VOICE, OPT_STYLE, OPT_SPEED,
-    OPT_ROLE, CONF_DEFAULT_VOICE
+    OPT_VOICE, OPT_SPEED, OPT_VOL,
+    OPT_PITCH, CONF_DEFAULT_VOICE, CONF_ACCESS_SECRET, CONF_ACCESS_KEY, CONF_APP_KEY
 )
 from .speech import CognitiveSpeech
 
@@ -14,9 +13,9 @@ _LOGGER = logging.getLogger(__name__)
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
     {
-        vol.Required(CONF_API_KEY): cv.string,
-        vol.Required(CONF_REGION): cv.string,
-        vol.Required(CONF_DEFAULT_VOICE): cv.string
+        vol.Required(CONF_ACCESS_KEY): cv.string,
+        vol.Required(CONF_ACCESS_SECRET): cv.string,
+        vol.Required(CONF_APP_KEY): cv.string
     }
 )
 
@@ -29,9 +28,9 @@ class CognitiveProvider(Provider):
     def __init__(self, hass, config):
         self.hass = hass
         self.name = "Azure Cognitive Speech"
-        self._apikey = config.get(CONF_API_KEY)
-        self._region = config.get(CONF_REGION)
-        self._default_voice = config.get(CONF_DEFAULT_VOICE)
+        self._access_key = config.get(CONF_ACCESS_KEY)
+        self._access_secret = config.get(CONF_ACCESS_SECRET)
+        self._app_key = config.get(CONF_APP_KEY)
 
     @property
     def default_language(self):
@@ -43,19 +42,19 @@ class CognitiveProvider(Provider):
 
     @property
     def supported_options(self):
-        return [OPT_VOICE, OPT_STYLE, OPT_ROLE, OPT_SPEED]
+        return [OPT_VOICE, OPT_SPEED, OPT_PITCH, OPT_VOL]
 
     @property
     def default_options(self):
-        return {OPT_VOICE: self._default_voice, OPT_SPEED: 0}
+        return {OPT_VOICE: "aixia", OPT_SPEED: 0, OPT_PITCH: 0, OPT_VOL: 60}
 
     def get_tts_audio(self, message, language, options=None):
         voice = options.get(OPT_VOICE) if options is not None else None
-        style = options.get(OPT_STYLE) if options is not None else None
-        role = options.get(OPT_ROLE) if options is not None else None
         speed = options.get(OPT_SPEED) if options is not None else None
-        speech = CognitiveSpeech(self.hass, self._region, self._apikey, self._default_voice)
-        r = speech.speech(message, voice=voice, speed=speed, style=style, role=role)
+        pitch = options.get(OPT_PITCH) if options is not None else None
+        tts_vol = options.get(OPT_VOL) if options is not None else None
+        speech = CognitiveSpeech(self.hass, self._access_key, self._access_secret, self._app_key, voice)
+        r = speech.speech(message, voice=voice, speed=speed, pitch=pitch, vol=tts_vol)
         if r is not None:
             return "mp3", r
         return None, None

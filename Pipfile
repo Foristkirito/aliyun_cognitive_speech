@@ -1,0 +1,14 @@
+[[source]]
+name = "tuna"
+url = "https://pypi.tuna.tsinghua.edu.cn/simple/"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+requests = "*"
+homeassistant = "*"
+aliyun-python-sdk-core = "==2.13.3"
+
+[requires]
+python_version = "3.9"

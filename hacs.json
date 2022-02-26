@@ -1,5 +1,5 @@
 {
-    "name": "Azure Cognitive Speech Component",
+    "name": "Aliyun Cognitive Speech Component",
     "domains": ["tts"],
     "render_readme": true
 }
